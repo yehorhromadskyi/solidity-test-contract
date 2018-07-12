@@ -100,10 +100,8 @@ $TOOLS_DIR = Join-Path $PSScriptRoot "tools"
 $ADDINS_DIR = Join-Path $TOOLS_DIR "Addins"
 $MODULES_DIR = Join-Path $TOOLS_DIR "Modules"
 $NUGET_EXE = Join-Path $TOOLS_DIR "nuget.exe"
-$GETH_EXE = Join-Path $TOOLS_DIR "geth.exe"
 $CAKE_EXE = Join-Path $TOOLS_DIR "Cake/Cake.exe"
 $NUGET_URL = "https://dist.nuget.org/win-x86-commandline/latest/nuget.exe"
-$GETH_URL = "https://gethstore.blob.core.windows.net/builds/geth-windows-amd64-1.8.12-37685930.exe"
 $PACKAGES_CONFIG = Join-Path $TOOLS_DIR "packages.config"
 $PACKAGES_CONFIG_MD5 = Join-Path $TOOLS_DIR "packages.config.md5sum"
 $ADDINS_PACKAGES_CONFIG = Join-Path $ADDINS_DIR "packages.config"
@@ -145,17 +143,6 @@ if (!(Test-Path $NUGET_EXE)) {
         $wc.DownloadFile($NUGET_URL, $NUGET_EXE)
     } catch {
         Throw "Could not download NuGet.exe."
-    }
-}
-
-# Try download Geth if not exists
-if (!(Test-Path $GETH_EXE)) {
-    Write-Verbose -Message "Downloading Geth..."
-    try {
-        $wc = GetProxyEnabledWebClient
-        $wc.DownloadFile($GETH_URL, $GETH_EXE)
-    } catch {
-        Throw "Could not download Geth."
     }
 }
 

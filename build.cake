@@ -30,7 +30,7 @@ Task("Build")
         DotNetCoreBuild("./", settings);
     });
 
-Task("Compile-Contract")
+Task("Compile-contract")
     .IsDependentOn("Build")
     .Does(() => 
     {
@@ -42,13 +42,13 @@ Task("Compile-Contract")
         });
     });
 
-Task("Run-Geth-And-Test")
-    .IsDependentOn("Compile-Contract")
+Task("Test")
+    .IsDependentOn("Compile-contract")
     .Does(() => 
     {
         var startInfo = new System.Diagnostics.ProcessStartInfo
         {
-            FileName = "cmd.exe",
+            FileName = "powershell.exe",
             RedirectStandardInput = true,
             RedirectStandardOutput = true,
             UseShellExecute = false,
@@ -56,10 +56,16 @@ Task("Run-Geth-And-Test")
         };
 
         var process = new System.Diagnostics.Process { StartInfo = startInfo };
-
         process.Start();
-        process.StandardInput.WriteLine("cd testchain");
-        process.StandardInput.WriteLine("startgeth");
+
+        var testchainDir = MakeAbsolute(Directory("./testchain"));
+
+        process.StandardInput.WriteLine("cd " + testchainDir);
+
+        var startgeth = "sh " + testchainDir + "/startgeth.sh";
+        Information("Run geth: " + startgeth + "\r\n");
+
+        process.StandardInput.WriteLine(startgeth);
         
         var settings = new DotNetCoreTestSettings
         {
@@ -70,12 +76,12 @@ Task("Run-Geth-And-Test")
 
         // exit geth
         process.StandardInput.WriteLine("exit");
-        // exit cmd
+        // exit powershell
         process.StandardInput.WriteLine("exit");
         process.WaitForExit();
     });
 
 Task("Default")
-    .IsDependentOn("Run-Geth-And-Test");
+    .IsDependentOn("Test");
 
 RunTarget(target);

@@ -25,11 +25,10 @@ build/
 bld/
 [Bb]in/
 [Oo]bj/
-devChainRPCTests/
-testchain/clique/devChain/geth
-testchain/devChain/geth
-geth.exe
 tools/
+.vscode/
+testchain/devChain/geth
+testchain/devChain/history
 
 
 # Visual Studio 2015 cache/options directory
@@ -283,5 +282,3 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
-
-testchain/
