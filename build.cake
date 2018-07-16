@@ -53,7 +53,7 @@ Task("Compile-contract")
     });
 
 Task("Test")
-    //.IsDependentOn("Compile-contract")
+    .IsDependentOn("Compile-contract")
     .Does(() => 
     {
         var startInfo = new System.Diagnostics.ProcessStartInfo
