@@ -3,8 +3,5 @@ rm -rf devChain/dapp
 rm -rf devChain/nodes
 rm -rf devchain/nodekey
 
-#$scriptDir = Split-Path -Path $MyInvocation.MyCommand.Definition -Parent
-#& $scriptDir\IndexSymbols.ps1
-
-$PSScriptRoot\geth.exe --datadir=devChain init genesis_clique.json
-$PSScriptRoot\geth.exe --nodiscover --rpc --datadir=devChain  --rpccorsdomain "*" --mine --rpcapi "eth,web3,personal,net,miner,admin,debug" --unlock 0x12890d2cce102216644c59dae5baed380d84830c --password "pass.txt" --verbosity 0 console  
+$PWD/geth.exe --datadir=devChain init genesis_clique.json
+$PWD/geth.exe --nodiscover --rpc --datadir=devChain  --rpccorsdomain "*" --mine --rpcapi "eth,web3,personal,net,miner,admin,debug" --unlock 0x12890d2cce102216644c59dae5baed380d84830c --password "pass.txt" --verbosity 0 console  
