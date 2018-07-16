@@ -1,4 +1,5 @@
 #addin Cake.FileHelpers
+#addin Cake.Npm
 
 var target = Argument("target", "Default");
 var contract = "Sqrt";
@@ -30,8 +31,17 @@ Task("Build")
         DotNetCoreBuild("./", settings);
     });
 
-Task("Compile-contract")
+Task("Npm")
     .IsDependentOn("Build")
+    .Does(() =>
+    {
+        Information("npm install solc \r\n");
+
+        NpmInstall("solc");
+    });
+
+Task("Compile-contract")
+    .IsDependentOn("Npm")
     .Does(() => 
     {
         StartProcess("powershell", new ProcessSettings 
