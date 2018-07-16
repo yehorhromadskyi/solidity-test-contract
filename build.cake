@@ -37,7 +37,7 @@ Task("Npm")
     {
         Information("npm install solc \r\n");
 
-        NpmInstall("solc");
+        NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
     });
 
 Task("Compile-contract")
