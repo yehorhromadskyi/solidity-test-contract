@@ -35,7 +35,7 @@ Task("Npm")
     .IsDependentOn("Build")
     .Does(() =>
     {
-        Information("npm install solc \r\n");
+        Information("Installing solidity compiler\r\n");
 
         NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
     });
