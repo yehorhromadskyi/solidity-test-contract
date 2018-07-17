@@ -11,13 +11,16 @@ using Xunit;
 
 namespace NethereumTest
 {
-    public class SqrtContractTests
+    public class BravoContractTests
     {
         const string Password = "password";
 
+        const string Sender = "0x12890d2cce102216644c59dae5baed380d84830c";
+        const string Receiver = "0xd147520dba4367a8d243b7feb69f5161c0177de4";
+
         Contract _contract;
 
-        public SqrtContractTests()
+        public BravoContractTests()
         {
             var currentDirectory = Environment.CurrentDirectory;
             while (!currentDirectory.EndsWith("bin"))
@@ -38,9 +41,7 @@ namespace NethereumTest
         [Fact]
         public async Task DeployContractTest() 
         {
-            var senderAddress = "0x12890d2cce102216644c59dae5baed380d84830c";
-
-            var web3Geth = new Web3Geth(new ManagedAccount(senderAddress, Password));
+            var web3Geth = new Web3Geth(new ManagedAccount(Sender, Password));
 
             // var accounts = await web3Geth.Eth.Accounts.SendRequestAsync();
             // if (accounts.Length == 0)
@@ -58,7 +59,7 @@ namespace NethereumTest
             //var b = await web3Geth.Eth.GetBalance.SendRequestAsync(senderAddress);
 
             var receipt = await web3Geth.Eth.DeployContract.SendRequestAndWaitForReceiptAsync(
-                _contract.Abi, _contract.Bytecode, senderAddress, new HexBigInteger(900000));
+                _contract.Abi, _contract.Bytecode, Sender, new HexBigInteger(900000));
 
             // var mineResult = await web3Geth.Miner.Start.SendRequestAsync();
             // Assert.False(mineResult);
@@ -76,10 +77,10 @@ namespace NethereumTest
 
             var contractAddress = receipt.ContractAddress;
             var contract = web3Geth.Eth.GetContract(_contract.Abi, contractAddress);
-            var sqrt = contract.GetFunction("sqrt");
+            var transfer = contract.GetFunction("transfer");
 
-            var result = await sqrt.CallAsync<int>(11);
-            Assert.Equal(121, result);
+            //var result = await sqrt.CallAsync<int>(11);
+            Assert.NotNull(transfer);
         }
 
         [Fact]

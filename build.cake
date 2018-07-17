@@ -2,7 +2,7 @@
 #addin Cake.Npm
 
 var target = Argument("target", "Default");
-var contract = "Sqrt";
+var contract = "Bravo";
 var configuration = Argument("configuration", "Release");
 
 Task("Clean")
@@ -40,10 +40,12 @@ Task("Npm")
         NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
     });
 
-Task("Compile-contract")
+Task("Contract")
     .IsDependentOn("Npm")
     .Does(() => 
     {
+        Information("Compiling " + contract + ".sol " + "contract\r\n");
+
         StartProcess("powershell", new ProcessSettings 
         {
             Arguments = new ProcessArgumentBuilder()
@@ -53,7 +55,7 @@ Task("Compile-contract")
     });
 
 Task("Test")
-    .IsDependentOn("Compile-contract")
+    .IsDependentOn("Contract")
     .Does(() => 
     {
         var startInfo = new System.Diagnostics.ProcessStartInfo
