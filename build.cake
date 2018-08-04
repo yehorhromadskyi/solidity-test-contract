@@ -37,7 +37,8 @@ Task("Npm")
     {
         Information("Installing solidity compiler\r\n");
 
-        NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
+        //NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
+        NpmInstall("solc");
     });
 
 Task("Contract")
