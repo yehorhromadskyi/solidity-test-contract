@@ -27,9 +27,8 @@ namespace NethereumTest
             {
                 currentDirectory = Directory.GetParent(currentDirectory).FullName;
             }
-
-            var abif = Directory.GetFiles(currentDirectory).First(f => f.EndsWith("abi"));
-            var binf = Directory.GetFiles(currentDirectory).First(f => f.EndsWith("bin"));
+            var abif = Directory.GetFiles(currentDirectory).First(f => f.EndsWith("Bravo.abi"));
+            var binf = Directory.GetFiles(currentDirectory).First(f => f.Contains("Bravo.bin"));
 
             _contract = new Contract
             {
@@ -77,10 +76,10 @@ namespace NethereumTest
 
             var contractAddress = receipt.ContractAddress;
             var contract = web3Geth.Eth.GetContract(_contract.Abi, contractAddress);
-            var transfer = contract.GetFunction("transfer");
+            var balanceOfFunction = contract.GetFunction("balanceOf");
 
-            //var result = await sqrt.CallAsync<int>(11);
-            Assert.NotNull(transfer);
+            //var balance = await balanceOfFunction.CallAsync<int>(5);
+            Assert.True(balanceOfFunction != null);
         }
 
         [Fact]

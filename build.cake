@@ -44,13 +44,12 @@ Task("Contract")
     .IsDependentOn("Npm")
     .Does(() => 
     {
-        Information("Compiling " + contract + ".sol " + "contract\r\n");
+        Information("Run compile.js\r\n");
 
         StartProcess("powershell", new ProcessSettings 
         {
             Arguments = new ProcessArgumentBuilder()
-                .Append(@"solcjs --bin contracts/{0}.sol -o bin;", contract)
-                .Append(@"solcjs --abi contracts/{0}.sol -o bin;", contract)
+                .Append(@"node compile.js", contract)
         });
     });
 
@@ -75,10 +74,12 @@ Task("Test")
         process.StandardInput.WriteLine("cd " + testchainDir);
 
         var startgeth = "sh " + testchainDir + "/startgeth.sh";
-        Information("Run geth: " + startgeth + "\r\n");
+        Information("Running geth: " + startgeth + "\r\n");
 
         process.StandardInput.WriteLine(startgeth);
-        
+
+        //System.Threading.Thread.Sleep(10000);
+
         var settings = new DotNetCoreTestSettings
         {
             Configuration = configuration
