@@ -1,0 +1,19 @@
+{
+  "name": "solidity-test-contract",
+  "version": "1.0.0",
+  "description": "![appveyor](https://ci.appveyor.com/api/projects/status/github/yehorhromadskyi/solidity-test-contract?branch=master&svg=true)",
+  "main": "build.ps1",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yehorhromadskyi/solidity-test-contract.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yehorhromadskyi/solidity-test-contract/issues"
+  },
+  "homepage": "https://github.com/yehorhromadskyi/solidity-test-contract#readme"
+}
