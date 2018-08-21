@@ -8,4 +8,4 @@
 * Run script ./build.ps1**
 
 
-  ** If you get an error about not signed script, just change execution policy by running _Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass in powershell_
+  ** If you get an error about not signed script, just change execution policy by running _Set-ExecutionPolicy -Scope Process -ExecutionPolicy Bypass_ in powershell
