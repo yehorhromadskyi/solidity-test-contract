@@ -2,6 +2,13 @@
 
 ![appveyor](https://ci.appveyor.com/api/projects/status/github/yehorhromadskyi/solidity-test-contract?branch=master&svg=true)
 
+## Prerequisites
+* [Node.js](https://nodejs.org/en/)
+
+* .NET Core 2.1
+
+
+
 ## Getting started
 
 * Open powershell as administrator
