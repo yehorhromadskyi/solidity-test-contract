@@ -3,7 +3,7 @@
 ![appveyor](https://ci.appveyor.com/api/projects/status/github/yehorhromadskyi/solidity-test-contract?branch=master&svg=true)
 
 ## Prerequisites
-* [Node.js](https://nodejs.org/en/)
+* [Node.js](https://nodejs.org/en/download/)
 
 * .NET Core 2.1
 
