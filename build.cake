@@ -5,7 +5,19 @@ var target = Argument("target", "Default");
 var contract = "Bravo";
 var configuration = Argument("configuration", "Release");
 
+Task("Install-Packages")
+    .Does(() =>
+    {
+        //NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
+		
+		ChocolateyInstall("nodejs.install");
+		
+		Information("\r\nInstalling solidity compiler\r\n");
+        NpmInstall("solc");
+    });
+
 Task("Clean")
+	.IsDependentOn("Install-Packages")
     .Does(() =>
     {
         var settings = new DotNetCoreCleanSettings
@@ -31,18 +43,8 @@ Task("Build")
         DotNetCoreBuild("./", settings);
     });
 
-Task("Npm")
-    .IsDependentOn("Build")
-    .Does(() =>
-    {
-        Information("Installing solidity compiler\r\n");
-
-        //NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
-        NpmInstall("solc");
-    });
-
 Task("Contract")
-    .IsDependentOn("Npm")
+    .IsDependentOn("Build")
     .Does(() => 
     {
         Information("Run compile.js\r\n");
@@ -74,21 +76,19 @@ Task("Test")
 
         process.StandardInput.WriteLine("cd " + testchainDir);
 
-        var startgeth = "sh " + testchainDir + "/startgeth.sh";
+        var startgeth = testchainDir + "/startgeth.bat";
         Information("Running geth: " + startgeth + "\r\n");
 
         process.StandardInput.WriteLine(startgeth);
-
-        //System.Threading.Thread.Sleep(10000);
-
+		
         var settings = new DotNetCoreTestSettings
         {
             Configuration = configuration
         };
 
         DotNetCoreTest("./", settings);
-
-        // exit geth
+		
+		// exit geth
         process.StandardInput.WriteLine("exit");
         // exit powershell
         process.StandardInput.WriteLine("exit");

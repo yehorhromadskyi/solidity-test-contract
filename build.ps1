@@ -178,6 +178,8 @@ if(-Not $SkipToolPackageRestore.IsPresent) {
     Pop-Location
 }
 
+Set-ExecutionPolicy Bypass -Scope Process -Force; iex ((New-Object System.Net.WebClient).DownloadString('https://chocolatey.org/install.ps1'))
+
 # Restore addins from NuGet
 if (Test-Path $ADDINS_PACKAGES_CONFIG) {
     Push-Location
