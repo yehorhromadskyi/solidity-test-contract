@@ -2,7 +2,10 @@ const fs = require('fs');
 const solc = require('solc');
 
 var input = {
-	'Bravo': fs.readFileSync('./contracts/Bravo.sol', 'UTF-8')
+	'SafeMath.sol': fs.readFileSync('./contracts/SafeMath.sol', 'UTF-8'),
+	'ERC20Interface.sol': fs.readFileSync('./contracts/ERC20Interface.sol', 'UTF-8'),
+	'Owned.sol': fs.readFileSync('./contracts/Owned.sol', 'UTF-8'),
+	'Bravo.sol': fs.readFileSync('./contracts/Bravo.sol', 'UTF-8')
 }
 
 var output = solc.compile({sources: input}, 1)

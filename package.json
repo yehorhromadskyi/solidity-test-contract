@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/yehorhromadskyi/solidity-test-contract/issues"
   },
-  "homepage": "https://github.com/yehorhromadskyi/solidity-test-contract#readme"
+  "homepage": "https://github.com/yehorhromadskyi/solidity-test-contract#readme",
+  "dependencies": {
+    "solc": "^0.4.24"
+  }
 }
