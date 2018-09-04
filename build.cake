@@ -17,10 +17,6 @@ Task("Install-Packages")
 		{
 			Information("Unix");
 		}
-	
-        //NpmInstall(settings => settings.AddPackage("solc").InstallGlobally());
-		
-		ChocolateyInstall("nodejs.install");
 		
 		Information("\r\nInstalling solidity compiler\r\n");
         NpmInstall("solc");
@@ -53,7 +49,7 @@ Task("Build")
         DotNetCoreBuild("./", settings);
     });
 
-Task("Contract")
+Task("Compile-Contract")
     .IsDependentOn("Build")
     .Does(() => 
     {
@@ -66,8 +62,8 @@ Task("Contract")
         });
     });
 
-Task("Test")
-    .IsDependentOn("Contract")
+Task("Run-Tests")
+    .IsDependentOn("Compile-Contract")
     .Does(() => 
     {	
         var startInfo = new System.Diagnostics.ProcessStartInfo
@@ -95,7 +91,7 @@ Task("Test")
         {
             Configuration = configuration
         };
-        
+		
         DotNetCoreTest("./", settings);
 		
 		// exit geth
@@ -106,6 +102,6 @@ Task("Test")
     });
 
 Task("Default")
-    .IsDependentOn("Test");
+    .IsDependentOn("Run-Tests");
 
 RunTarget(target);
